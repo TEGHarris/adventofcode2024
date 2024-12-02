@@ -5,9 +5,8 @@ valid = 0
 steadyIncrease = False
 steadyDecrease = False
 
-def checkNumberPair(a,b,steadyIncrease,steadyDecrease,i):
-    # global steadyIncrease
-    # global steadyDecrease
+def checkNumberPair(a, b, i):
+    global steadyIncrease, steadyDecrease
     if abs(b -a) > 3 or abs(b - a) < 1:
         return False
     if i == 1:
@@ -29,7 +28,9 @@ for line in lines:
     for i in range(len(workingReport)):
         if i == 0:
             continue
-        if not checkNumberPair(int(workingReport[i-1]),int(workingReport[i]),steadyIncrease,steadyDecrease,i):
+        if not checkNumberPair(int(workingReport[i-1]), int(workingReport[i]), i):
             break
         if i == len(workingReport) - 1:
             valid += 1
+print("hello world")
+print(valid)
