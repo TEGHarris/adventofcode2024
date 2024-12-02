@@ -1,12 +1,16 @@
 f = open("Dec2Input.txt", "r")
 lines = f.readlines()
-
+#this is a test line
 valid = 0
+steadyIncrease = False
+steadyDecrease = False
 
-def checkNumberPair(a,b,steadyIncrease,steadyDecrease,isFirstPair):
+def checkNumberPair(a,b,steadyIncrease,steadyDecrease,i):
+    # global steadyIncrease
+    # global steadyDecrease
     if abs(b -a) > 3 or abs(b - a) < 1:
         return False
-    if isFirstPair:
+    if i == 1:
         if b > a:
             steadyIncrease = True
         if b < a:
@@ -22,12 +26,10 @@ for line in lines:
     steadyIncrease = False
     steadyDecrease = False
     workingReport = line.split()
-    isFirstPair = True
     for i in range(len(workingReport)):
         if i == 0:
             continue
-        if not checkNumberPair(int(workingReport[i-1]),int(workingReport[i]),steadyIncrease,steadyDecrease,isFirstPair):
+        if not checkNumberPair(int(workingReport[i-1]),int(workingReport[i]),steadyIncrease,steadyDecrease,i):
             break
         if i == len(workingReport) - 1:
             valid += 1
-        isFirstPair = False
