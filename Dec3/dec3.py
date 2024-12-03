@@ -1,5 +1,5 @@
 import re
-myregex = "mul\(\d+,\d+\)"
+myregex = r"mul\(\d+,\d+\)"
 
 
 with open("Dec3input.txt","r") as f:
@@ -12,6 +12,11 @@ with open("Dec3input.txt","r") as f:
 #         print(fileAsString[i:i+5])
 
 matches = re.findall(myregex,fileAsString)
-
+total = 0
 for i in range(len(matches)):
-    print(matches[i])
+    matches[i] = matches[i].replace("mul(","")
+    matches[i] = matches[i].replace(")","")
+    matches[i] = matches[i].split(",")
+    matches[i] = int(matches[i][0]) * int(matches[i][1])
+    total += matches[i]
+print(total)
