@@ -29,6 +29,8 @@ def moveForward(row, col):
         area[row][col] = "X"
         area[row][col+1] = ">"
         return row, col+1
+    else:
+        raise IndexError
 
 def rotate(row,col):
     global area
