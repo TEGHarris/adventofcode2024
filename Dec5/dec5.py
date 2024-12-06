@@ -21,3 +21,22 @@ def NeededRules(manual):
 valid_manuals = []
 for i in range(len(manuals)):
     needed = NeededRules(manuals[i]) # needed is a list of rules that are needed for the manual
+    if len(needed) == 0:
+        valid_manuals.append(manuals[i])
+        continue
+    else:
+        flag = True
+        for j in range(len(needed)):
+            if manuals[i].index(needed[j][0]) > manuals[i].index(needed[j][1]):
+                flag = False
+                break
+        if flag:
+            valid_manuals.append(manuals[i])
+
+
+
+finalTotal = 0
+for i in range(len(valid_manuals)):
+    middleValue = int(valid_manuals[i][len(valid_manuals[i]) // 2])
+    finalTotal += middleValue
+print(finalTotal)
