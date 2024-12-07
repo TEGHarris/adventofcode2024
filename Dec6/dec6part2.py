@@ -1,4 +1,4 @@
-with open("Dec6Input.txt") as f:
+with open("example.txt") as f:
     area = f.readlines()
     area = [x.strip() for x in area]
 for i in range(len(area)):
@@ -44,32 +44,38 @@ def rotate(row,col):
         area[row][col] = "v"
 
 originalRow, originalCol = findLocation()
+total = 0
 
 for i in range(len(area)):
     for j in range(len(area[i])):
         areaClone = area.copy()
+        areaClone[i][j] = "#"
         count = 0 # represents the number of times the guard passes through it start position
-    while True:
-        Row, Col = findLocation()
-        if area[Row][Col] == "^" and Row > 0 and area[Row-1][Col] == "#":
-            rotate(Row, Col)
-        elif area[Row][Col] == "v" and Row+1 < len(area) and area[Row+1][Col] == "#":
-            rotate(Row, Col)
-        elif area[Row][Col] == "<" and Col > 0 and area[Row][Col-1] == "#":
-            rotate(Row, Col)
-        elif area[Row][Col] == ">" and Col+1 < len(area[Row]) and area[Row][Col+1] == "#":
-            rotate(Row, Col)
-        try:
-            Row, Col = moveForward(Row, Col)
-        except IndexError:
-            break
-        if Row == originalRow and Col == originalCol:
-            count += 1
-        if count == 10:
+        while True:
+            try:
+                Row, Col = findLocation()
+            except TypeError:
+                areaClone[i][j] = "."
+                areaClone[originalRow][originalCol] = "^"
+                Row, Col = originalRow, originalCol
+            if area[Row][Col] == "^" and Row > 0 and area[Row-1][Col] == "#":
+                rotate(Row, Col)
+            elif area[Row][Col] == "v" and Row+1 < len(area) and area[Row+1][Col] == "#":
+                rotate(Row, Col)
+            elif area[Row][Col] == "<" and Col > 0 and area[Row][Col-1] == "#":
+                rotate(Row, Col)
+            elif area[Row][Col] == ">" and Col+1 < len(area[Row]) and area[Row][Col+1] == "#":
+                rotate(Row, Col)
+            try:
+                Row, Col = moveForward(Row, Col)
+            except IndexError:
+                break
+            if Row == originalRow and Col == originalCol:
+                count += 1
+            if count == 2:
+                total += 1
+                break
+        print(f"{i+j} out of {len(area)*len(area[0])}")
 
-total = 0
-for i in range(len(area)):
-    for j in range(len(area[i])):
-        if area[i][j] in ["X", "^", "v", "<", ">"]:
-            total += 1
+
 print(total)
