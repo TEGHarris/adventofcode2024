@@ -10,19 +10,18 @@ antiNodes = [["."] * len(antennas[0]) for i in range(len(antennas))]
 
 def findAntiNode(primaryRow, primaryCol, secondaryRow, secondaryCol):
     rise = primaryRow - secondaryRow
-    run = 1 *(primaryCol - secondaryCol)
-    count = 1
+    run = primaryCol - secondaryCol 
+    x = primaryCol 
+    y = primaryRow
     while True:
-        x = primaryCol + (count *run)
-        y = primaryRow + (count *rise)
-        if x < 0 or y < 0 or x >= len(antennas[0]) or y >= len(antennas):
-            print(f"AntiNode is out of bounds but it would be at position ({y}, {x}) and of type {antennas[primaryRow][primaryCol]}. The origin points are ({primaryRow}, {primaryCol}) and ({secondaryRow}, {secondaryCol})")
-            break
-        elif antiNodes[y][x] == ".":
-            antiNodes[y][x] = "#"
-            print(f"Found antiNode at position ({y}, {x}) of type {antennas[primaryRow][primaryCol]}")
-        count += 1
 
+        if x < 0 or y < 0 or x >= len(antennas[0]) or y >= len(antennas):
+            return
+        elif antiNodes[y][x] == ".":
+            antiNodes[y][x] = "#"    
+        x += run
+        y += rise
+    return
 def countAntiNodes():
     count = 0
     for i in range(len(antiNodes)):
@@ -66,5 +65,4 @@ while True:
             if antennas[i][j] == workingAntennaType:
                 antennas[i][j] = "."
 
-# the answer must be greater than 318
-# not 374
+# 1064 < Correct Answer < 2188
