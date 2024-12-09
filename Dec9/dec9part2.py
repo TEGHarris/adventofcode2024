@@ -21,8 +21,18 @@ for i in range(len(expandedList)-1,-1,-1):
         continue
     else:
         workingValue = expandedList[i]
-        expandedList[i] = "."
+        length = 1
+        while True:
+            if expandedList[i-length] == expandedList[i]:
+                expandedList[i] = "."
+                length += 1
+            else:
+                break
+        
         for j in range(len(expandedList)):
+            for i in range(length):
+                if expandedList[j+i] != '.':
+                    flag = False
             if expandedList[j] == '.':
                 expandedList[j] = str(workingValue)
                 break
