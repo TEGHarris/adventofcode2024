@@ -1,7 +1,11 @@
+import numpy as np
+
+
 with open("Dec11Input.txt") as f:
     content = f.read().strip()
     data = content.split(" ")
     data = [int(x) for x in data]
+    data = np.array(data)
 
 
 # def shiftAll(data,stop):
@@ -24,7 +28,7 @@ for i in range(25):
             continue
         elif len(str(data[stone])) % 2 == 0:
             midpoint = len(str(data[stone])) // 2
-            data.insert(stone+1, int(str(data[stone])[midpoint:]))
+            np.insert(data, stone+1, int(str(data[stone])[midpoint:]))
             data[stone] = int(str(data[stone])[:midpoint])
             stone += 2
         else:
