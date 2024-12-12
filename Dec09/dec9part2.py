@@ -49,6 +49,6 @@ for i in range(len(expandedList)-1,-1,-1): # iterate backwards through the list
 total = 0
 for k in range(len(expandedList)):
     if expandedList[k] == ".":
-        break
+        continue
     total += (int(expandedList[k])*k)
 print (total)

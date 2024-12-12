@@ -17,23 +17,18 @@ with open("Dec11Input.txt") as f:
         
 
 previousWasSplit = False
-for i in range(25):
-    stone = 0
-    while True:
-        if stone >= len(data):
-            break
-        if data[stone] == 0:
-            data[stone] = 1
-            stone += 1
-            continue
-        elif len(str(data[stone])) % 2 == 0:
-            midpoint = len(str(data[stone])) // 2
-            np.insert(data, stone+1, int(str(data[stone])[midpoint:]))
-            data[stone] = int(str(data[stone])[:midpoint])
-            stone += 2
+for i in range(75):
+    new_data = []
+    for stone in data:
+        if stone == 0:
+            new_data.append(1)
+        elif len(str(stone)) % 2 == 0:
+            midpoint = len(str(stone)) // 2
+            new_data.append(int(str(stone)[:midpoint]))
+            new_data.append(int(str(stone)[midpoint:]))
         else:
-            data[stone] = data[stone] * 2024
-            stone +=1
-
+            new_data.append(stone * 2024)
+    data = np.array(new_data)
+    print(f"Completed {i+1} of 75")
     #print(f"After {i+1} blink(s): {data}")
 print(f"Final length of data: {len(data)}")
