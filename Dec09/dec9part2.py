@@ -22,33 +22,49 @@ def expandList(data):
 
 def checkList(expandedList,start,length):
     for i in range(start,start+length):
+        if i >= len(expandedList):
+            return False
         if expandedList[i] != ".":
             return False
     return True
-    
+
+
+usedWorkingValue = []
 expandedList = expandList(data)
 for i in range(len(expandedList)-1,-1,-1): # iterate backwards through the list
     if expandedList[i] == ".":
         continue
     else:
-        workingValue = expandedList[i]
+        if expandedList[i] not in usedWorkingValue:
+            workingValue = expandedList[i]
+            usedWorkingValue.append(workingValue)
+        else:
+            continue
         length = 0
         while True:
             if expandedList[i-length] != expandedList[i]:
                 break
             length += 1
-        for l in range(length):
-            expandedList[i-l] = "." # set the values to free space
+        placeToGo = False # and since you've no place to go, let it snow, let it snow, let it snow
         for j in range(len(expandedList)):
+            if j >= i:
+                break
             if checkList(expandedList,j,length):
                 for k in range(j,j+length):
                     expandedList[k] = workingValue # set the values to working value
-                expandedList[j] = str(workingValue)
+                placeToGo = True
                 break
+        if placeToGo:
+            for l in range(length):
+                expandedList[i-l] = "." # set the values to free space
+        print(expandedList)
+    print(i)
 
+
+print("Finished modifying the list")
 total = 0
 for k in range(len(expandedList)):
     if expandedList[k] == ".":
         continue
     total += (int(expandedList[k])*k)
-print (total)
+print (f"total is {total}")

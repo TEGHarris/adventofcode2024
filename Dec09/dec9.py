@@ -1,4 +1,4 @@
-with open("Dec9Input.txt") as f:
+with open("example.txt") as f:
     data = f.read()
     data = data.strip()
 
@@ -15,6 +15,7 @@ for i in range(len(data)):
         for k in range(int(data[i])):
             expandedList.append(".")
         isData = True
+print("Finished expanding the list")
 
 for i in range(len(expandedList)-1,-1,-1):
     if expandedList[i] == ".":
@@ -26,10 +27,11 @@ for i in range(len(expandedList)-1,-1,-1):
             if expandedList[j] == '.':
                 expandedList[j] = str(workingValue)
                 break
-
+    print(i)
+print("Starting to calculate the total")
 total = 0
 for k in range(len(expandedList)):
     if expandedList[k] == ".":
         break
     total += (int(expandedList[k])*k)
-print (total)
+print (f"Answer is{total}")
